@@ -21,6 +21,7 @@ class CreateElementsTable extends Migration
             $table->string('value')->nullable();
             $table->jsonb('options')->nullable();
             $table->timestamps();
+            $table->foreign('form_id')->references('id')->on('forms')->OnDelete('cascade');
         });
     }
 

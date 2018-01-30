@@ -19,6 +19,8 @@ class CreateFormValuesTable extends Migration
             $table->unsignedInteger('element_id');
             $table->jsonb('values')->nullable();
             $table->timestamps();
+            $table->foreign('form_id')->references('id')->on('forms')->OnDelete('cascade');
+            $table->foreign('element_id')->references('id')->on('elements')->OnDelete('cascade');
         });
     }
 
