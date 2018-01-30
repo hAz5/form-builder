@@ -1,0 +1,33 @@
+version: "2"
+services:
+    laravel:
+        build:
+              .
+        ports:
+            - "3741:80"
+        volumes:
+            - .:/var/www/html
+        links:
+            - mysql
+    mysql:
+        image: mysql
+        ports:
+            - "6603:3306"
+        environment:
+            MYSQL_DATABASE: test
+            MYSQL_USER: user
+            MYSQL_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d
+            - /var/lib/mysql:/var/lib/mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - mysql:mysql
+        ports:
+            - 9001:80
+        environment:
+            MYSQL_USER: user
+            MYSQL_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test
